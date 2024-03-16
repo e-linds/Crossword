@@ -78,9 +78,8 @@ function Home({ user, setUser }) {
         <div id="home-container">
             {user ? 
             <>
-            <h1>Hello, {user.name}.</h1>
-            <h1>Welcome to Crossword.</h1>
-            <h3>Choose an option above to start. Or, play the daily puzzles:</h3>
+            <h1>Hello, {user.name}. Welcome to Crossword.</h1>
+            <h2>Choose an option above to start. Or, play the daily puzzles:</h2>
             <a href="https://www.nytimes.com/crosswords/game/mini" target="_blank">Daily NYT Mini Crossword</a>
             <br></br>
             <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Wordle</a>
