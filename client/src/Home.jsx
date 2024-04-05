@@ -80,11 +80,15 @@ function Home({ user, setUser }) {
             <>
             <h1>Hello, {user.name}. Welcome to Crossword.</h1>
             <h2>Choose an option above to start. Or, play the daily puzzles:</h2>
-            <a href="https://www.nytimes.com/crosswords/game/mini" target="_blank">Daily NYT Mini Crossword</a>
-            <br></br>
-            <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Wordle</a>
-            <br></br>
-            <a href="https://www.nytimes.com/games/connections" target="_blank">NYT Connections</a>
+            <div className="dailypuzzles">
+                <a href="https://www.nytimes.com/crosswords/game/mini" target="_blank">Daily NYT Mini Crossword</a>
+            </div>
+            <div className="dailypuzzles">
+                <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Wordle</a>
+            </div>
+            <div className="dailypuzzles">
+                <a href="https://www.nytimes.com/games/connections" target="_blank">NYT Connections</a>
+            </div>
             </>
             :
             <>

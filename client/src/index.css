@@ -122,6 +122,19 @@ button:focus-visible {
   font-weight: bold
 }
 
+.dailypuzzles {
+  padding: 5px
+}
+
+.dailypuzzles a {
+  text-decoration: none;
+  color: black;
+}
+
+.dailypuzzles:hover {
+  font-weight: bold
+}
+
 #createoptions-container {
   display: flex;
   justify-content: center

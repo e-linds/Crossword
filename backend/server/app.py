@@ -27,6 +27,23 @@ def signup():
             print(e)
             return {"error": "failure to sign up"}, 422
         
+
+@app.route('/user/<int:id>', methods=["PATCH"])
+def user_by_id(id):
+    user = User.query.filter(User.id == id).first()
+
+    if request.method == "PATCH":
+        try:
+            data = request.get_json()
+            for attr in data:
+                setattr(user, attr, data.get(attr))
+            db.session.add(user)
+            db.session.commit()
+            return user.to_dict(), 200
+        except:
+            return {"error": "unable to edit"}, 400
+
+        
 @app.route('/check_session', methods = ["GET"])
 def check_session():
     if request.method == "GET":

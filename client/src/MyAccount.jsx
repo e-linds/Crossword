@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import Button from '@mui/material/Button';
+
 
 function MyAccount({ user, setUser, userPuzzles, setCurrentTab }) {
     const location = useLocation()
     const [longestWord, setLongestWord] = useState("")
     const [mostUsedLetter, setMostUsedLetter] = useState("")
+    const [editProfile, setEditProfile] = useState(false)
 
 
     useEffect(() => {
@@ -21,6 +27,61 @@ function MyAccount({ user, setUser, userPuzzles, setCurrentTab }) {
       })
       .then(r => setUser(null)
       ) }
+
+
+
+    function editProfileForm(e) {
+        e.preventDefault()
+
+        setEditProfile(false)
+
+        const newname = e.target["name"].value 
+        const newemail = e.target["email"].value 
+
+
+
+        if (newname) {
+
+            fetch(`/api/user/${user.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: newname
+                })
+
+        })
+
+        user.name = newname
+    
+    }
+    //WORKING ON VALIDATION OF EMAIL FOR FRONTEND
+
+
+        if (newemail.includes("@")) {
+
+            fetch(`/api/user/${user.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: newemail
+                })
+
+        })
+
+        user.email = newemail
+    
+    } else {
+        window.alert("Email must contain @ symbol")
+        setEditProfile(true)
+    }
+
+    }
+
+
 
       //there is certainly a more efficient way to do this - current time complexity is n squared
     function findWordRecords() {
@@ -76,6 +137,19 @@ function MyAccount({ user, setUser, userPuzzles, setCurrentTab }) {
             <h3>{user.name}</h3>
             <p>{user.email}</p>
         </div>
+        <button onClick={() => setEditProfile(true)}>Edit Profile</button>
+        <Dialog open={editProfile}>
+                            <DialogContent >
+                                <form onSubmit={editProfileForm}>
+                                    <label>New Name:</label>
+                                    <input name="name"></input>
+                                    <label>New Email:</label>
+                                    <input name="email"></input>
+                                    <button type="submit">Submit</button>
+                                    <button onClick={() => setEditProfile(false)}>Never mind</button>
+                                </form>
+                            </DialogContent>
+                    </Dialog>
         <button onClick={handleClick}>Logout</button>
         <div>
             <h3>Records</h3>
